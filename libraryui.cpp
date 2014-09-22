@@ -51,18 +51,18 @@ void LibraryUI::enterData()
    }
    QStringList objdata;
    switch (TYPES.indexOf(typestr)) {
-   case BOOK: objdata = promptBook();
+   case BOOK: objdata = BookUI::prompt();
          break;
-   case REFERENCEBOOK: objdata = promptReferenceBook();
+   case REFERENCEBOOK: objdata = ReferenceBookUI::prompt();
          break;
 //end
-   case TEXTBOOK: objdata = promptTextBook();
+   case TEXTBOOK: objdata = TextBookUI::prompt();
          break;
-   case DVD: objdata = promptDvd();
+   case DVD: objdata = DvdUI::prompt();
          break;
-   case FILM: objdata = promptFilm();
+   case FILM: objdata = FilmUI::prompt();
          break;
-   case DATADVD: objdata = promptDataBase();
+   case DATADVD: objdata = DataBaseUI::prompt();
          break;
 //start id=lclprompt
    default:
@@ -72,7 +72,7 @@ void LibraryUI::enterData()
    add(objdata);
 }
 
-QStringList LibraryUI::promptRefItem()
+QStringList RefItemUI::prompt()
 {
 	const int MAXCOPIES(10);
    const int ISBNLEN(13);
@@ -101,12 +101,12 @@ QStringList LibraryUI::promptRefItem()
    return retval;
 }
 
-QStringList LibraryUI::promptBook()
+QStringList BookUI::prompt()
 {
 	static const int MINYEAR(1900), 
                     MAXYEAR(QDate::currentDate().year());
    int year;
-   QStringList retval(promptRefItem());
+   QStringList retval(RefItemUI::prompt());
    QString str;
    cout << "Author: " << flush;
    retval << cin.readLine();
@@ -124,12 +124,12 @@ QStringList LibraryUI::promptBook()
    return retval;
 }
 
-QStringList LibraryUI::promptReferenceBook()
+QStringList ReferenceBookUI::prompt()
 {
 	int idx(0);
    bool ok;
    QString str;
-   QStringList retval(promptBook());
+   QStringList retval(BookUI::prompt());
    QStringList cats(ReferenceBook::getRefCategories());
    while(1) {
       cout << "Enter the index of the correct Reference Category: ";
@@ -145,21 +145,21 @@ QStringList LibraryUI::promptReferenceBook()
    return retval;
 }
 
-QStringList LibraryUI::promptTextBook()
+QStringList TextBookUI::prompt()
 {
-	QStringList retval(promptBook());
+	QStringList retval(BookUI::prompt());
    cout << "Course: " << flush;
    retval << cin.readLine();
    return retval; 
 }
 
-QStringList LibraryUI::promptDvd()
+QStringList DvdUI::prompt()
 {
 	bool ok;
    QString str, ans;
    int dnum;
    const int MAXDISKS(10);
-   QStringList retval(promptRefItem());
+   QStringList retval(RefItemUI::prompt());
    while(1) {
       cout << "Number of disks (no more than " << MAXDISKS 
            << " please): " << flush;
@@ -179,13 +179,13 @@ QStringList LibraryUI::promptDvd()
    return retval;
 }
 
-QStringList LibraryUI::promptFilm()
+QStringList FilmUI::prompt()
 {
 	int min;
    const int MAXTIME(1000);
    bool ok;
    QString str, ans;
-   QStringList retval(promptDvd());
+   QStringList retval(DvdUI::prompt());
    cout << "Star of film: " << flush;
    retval << cin.readLine();
    cout << "Director of film: " << flush;
@@ -208,9 +208,9 @@ QStringList LibraryUI::promptFilm()
    return retval;
 }
 
-QStringList LibraryUI::promptDataBase()
+QStringList DataBaseUI::prompt()
 {
-	QStringList retval(promptDvd());
+	QStringList retval(DvdUI::prompt());
    cout << "Database protocol: " << flush;
    retval << cin.readLine();
    return retval;

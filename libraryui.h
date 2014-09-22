@@ -17,18 +17,55 @@ class LibraryUI : public Library {
 		void remove();
 		void save();
 		void list();
-		QStringList promptRefItem();
-		QStringList promptBook();
-		QStringList promptReferenceBook();
-		QStringList promptTextBook();
-		QStringList promptDvd();
-		QStringList promptFilm();
-		QStringList promptDataBase();
 		Choices nextTask();
 		void prepareToQuit(bool saved);
 	private:
 		Library* m_Lib;
 
+};
+
+class RefItemUI : public RefItem
+{
+	public:
+		~RefItemUI();
+		static QStringList prompt();
+
+};
+
+class BookUI : public RefItemUI
+{
+	public:
+		static QStringList prompt();
+};
+
+class ReferenceBookUI : public BookUI
+{
+	public:
+		static QStringList prompt();
+};
+
+class TextBookUI : public BookUI
+{
+	public:
+		static QStringList prompt();
+};
+
+class DvdUI : public RefItemUI
+{
+	public:
+		static QStringList prompt();
+};
+
+class FilmUI : public DvdUI
+{
+	public:
+		static QStringList prompt();
+};
+
+class DataBaseUI : public DvdUI
+{
+	public:
+		static QStringList prompt();
 };
 
 #endif

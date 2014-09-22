@@ -1,3 +1,10 @@
+/*
+* Luke Wegryn
+* 9057-39534
+* lwegryn@vt.edu
+* ECE 3574
+* Homework 2
+*/
 #include <QStringList>
 #include <QDebug>
 #include "library.h"
